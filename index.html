@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <div class="flex m-30 gap-5">
+        <img src="Assets/Logo.png" alt="Logo" />
+        <div class="flex flex-col gap-3">
+          <h1 class="font-bold text-4xl">
+            ANGRY TEXT <br />
+            CONVERTER
+          </h1>
+          <p>
+            Tidak semua orang tega menulis dengan huruf kapital. Meski tombol
+            Caps Lock dan <br />
+            Shift tersedia, ada kalanya kita ingin menyampaikan amarah tanpa
+            benar-benar <br />
+            menekan tombol tersebut dengan penuh emosi.
+          </p>
+        </div>
+      </div>
+
+      <div class="w-full max-w-4xl mx-auto text-center">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-lg mb-2">Masukkan teks di sini:</label>
+            <textarea
+              id="inputText"
+              class="w-full p-2 rounded bg-gray-800 text-white border border-gray-600 h-96"
+              placeholder="Aku sebenarnya tidak marah...."
+            ></textarea>
+          </div>
+          <div>
+            <label class="block text-lg mb-2">Hasil:</label>
+            <div
+              id="output"
+              class="w-full h-96 flex items-center justify-center bg-transparent text-xl font-bold p-4 border border-gray-600"
+            ></div>
+          </div>
+        </div>
+        <div class="flex items-center justify-center mt-4 gap-4">
+          <button
+            class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            id="angryButton"
+          >
+            Make it angry
+          </button>
+          <div class="flex items-center gap-2">
+            <span>Kirim ke WhatsApp:</span>
+            <input
+              type="text"
+              id="whatsAppNumber"
+              class="p-2 rounded bg-gray-800 text-white border border-gray-600"
+              placeholder="08123456789"
+            />
+            <button
+              class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              onclick="sendToWhatsApp()"
+            >
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      let HandleClick = function (e) {
+        e.preventDefault();
+        let inputText = document.getElementById("inputText").value;
+        let output = inputText.toUpperCase();
+        console.log(output);
+        document.getElementById("output").innerText = output;
+      };
+
+      document
+        .getElementById("angryButton")
+        .addEventListener("click", HandleClick);
+
+        function sendToWhatsApp() {
+    let phone = document.getElementById("whatsAppNumber").value.replace(/\D/g, '');
+    let message = document.getElementById("output").innerText;
+
+    if (!phone) {
+      alert("Masukkan nomor WhatsApp yang valid.");
+      return;
+    }
+    if (!message) {
+      alert("Konversi teks terlebih dahulu!");
+      return;
+    }
+
+    let waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, "_blank");
+    
+      }
+    </script>
+  </body>
+</html>
